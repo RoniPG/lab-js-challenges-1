@@ -189,4 +189,116 @@ const matrix = [
   [1, 70, 54, 71, 83, 51, 54, 69, 16, 92, 33, 48, 61, 43, 52, 1, 89, 19, 67, 48]
 ];
 
-function greatestProduct() { }
+function greatestProduct(array) { 
+  //Multiplicación de filas
+  const productFilaMatrix =[[]]
+  let string =""
+  for (let i = 0; i < array.length; i++) {
+    const fila = array[i];
+    const aux  = [];
+    // string += "\nFila\n"
+    // let string = ""
+    //  console.log("typeof(fila)");
+    //console.log("Columna");
+    for (let j = 0; j < fila.length; j++) {
+      const columna = fila[j];
+      // console.log(columna);
+      // string += columna + ", ";
+      // string += `\n${columna}\n`
+      let result= 1;
+      if (j < fila.length - 3) {
+        for (let k = 0; k < 4; k++) {
+          const number = fila[k+j];
+          // string += `${number} `;
+          result *= number;
+        }
+        aux.push(result);
+        // string += `${result} `;
+      }
+      // console.log(string);
+    }
+    productFilaMatrix.push(aux);
+    // console.log(string);
+    
+  }
+  // console.log(string);
+  // for (let i = 0; i < productFilaMatrix.length; i++) {
+  //    console.log(productilaMatrix[i]);
+  // }
+  //Multiplicacion de columnas
+  const productColumnMatrix =[[]]
+  for (let i = 0; i < array.length; i++) {
+    const fila = array[i];
+    const aux = [];
+    for (let j = 0; j < fila.length; j++) {
+      const columna = fila[j];
+      // string += `${array[j][i]} `;
+      // let number = 1;
+      if (j < array.length - 3) {
+        let number = 1;
+        for (let k = 0; k < 4; k++) {
+          if (j+k < array.length) {
+            // console.log(array[j+k][i]);          
+            number *= array[j+k][i];  
+          }
+        }
+        aux.push(number);
+        // string += `${number} `;
+        // string += " | ";
+        // string += `${j} `;
+      }
+      // string += `${number} `;
+      // string += `${j} `;
+    }
+    productColumnMatrix.push(aux)
+    // string += `\n`; 
+    // string += `${j}\n`;
+    
+    // if (i < array.length - 3) {
+    //   let result = 1;
+    //   for (let j = 0; j < 4; j++) {
+    //     const number = fila[i+j][i];
+    //     console.log(fila[i+j][i]);
+        
+    //   }
+    // }
+  }
+  // console.log(string);
+  // for (let i = 0; i < productColumnMatrix.length; i++) {
+  //   console.log(productColumnMatrix[i]);
+  // }
+
+  //Mayor del array fila
+  let maxOfRow= -1;
+  for (let i = 0; i < productFilaMatrix.length; i++) {
+    const fila = productFilaMatrix[i];
+    for (let j = 0; j < fila.length; j++) {
+      const columna = fila[j];
+      // console.log("columna: ", columna);
+      if (maxOfRow < columna) {
+        maxOfRow =  columna;       
+      }
+    }
+  }
+  console.log("maxOfRow: ", maxOfRow);
+
+  //Mayor del array columna
+  let maxOfColum= -1;
+  for (let i = 0; i < productColumnMatrix.length; i++) {
+    const fila = productColumnMatrix[i];
+    for (let j = 0; j < fila.length; j++) {
+      const columna = fila[j];
+      // console.log("columna: ", columna);
+      if (maxOfColum < columna) {
+        maxOfColum =  columna;       
+      }
+    }
+  }
+  console.log("maxOfColum: ", maxOfColum);
+  if (maxOfColum < maxOfRow) {
+    return maxOfRow;
+  } else {
+    return maxOfColum
+  }
+}
+greatestProduct(matrix);
